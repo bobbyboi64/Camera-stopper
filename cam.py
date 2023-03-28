@@ -1,6 +1,7 @@
 import cv2
 import pyvirtualcam
-
+import numpy as np
+import keyboard
 # Get the list of available cameras
 camera_list = []
 for i in range(10):
@@ -43,6 +44,13 @@ with pyvirtualcam.Camera(width=width, height=height, fps=30) as cam:
 
         # Convert the frame from BGR to RGB
         frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+
+        # Check if the 'q' key is pressed
+        key = cv2.waitKey(1)
+        if keyboard.is_pressed("a"):
+            print('rubbish')
+            # If 'q' is pressed, display a white screen
+            frame_rgb = np.full((height, width, 3), (255, 255, 255), dtype=np.uint8)
 
         # Send the frame to the virtual camera
         cam.send(frame_rgb)
