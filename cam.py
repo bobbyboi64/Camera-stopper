@@ -1,5 +1,4 @@
 import cv2
-import numpy as np
 import pyvirtualcam
 
 # Get the list of available cameras
@@ -35,31 +34,12 @@ height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
 with pyvirtualcam.Camera(width=width, height=height, fps=30) as cam:
     print(f'Virtual camera created: {cam.device}')
 
-    # Initialize freeze flag and the frozen frame
-    freeze = False
-    frozen_frame = None
-
     while True:
         # Read a frame from the existing camera
         ret, frame = cap.read()
 
         if not ret:
             break
-
-        # Check for 'q' key press
-        key = cv2.waitKey(1)
-        if key == ord("'"):
-            if not freeze:
-                # Freeze the frame and store it as the frozen frame
-                freeze = True
-                frozen_frame = frame.copy()
-            else:
-                # Unfreeze the frame
-                freeze = False
-
-        if freeze:
-            # Use the frozen frame
-            frame = frozen_frame.copy()
 
         # Convert the frame from BGR to RGB
         frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
