@@ -2,6 +2,12 @@ import cv2
 import pyvirtualcam
 import numpy as np
 import keyboard
+
+def toggle_toggle():
+    global toggle
+    toggle = not toggle
+
+toggle = False
 # Get the list of available cameras
 camera_list = []
 for i in range(10):
@@ -15,6 +21,8 @@ print("Available cameras:")
 for camera in camera_list:
     print(camera)
 
+
+keyboard.add_hotkey("a", toggle_toggle)
 # Ask the user to choose a camera
 while True:
     camera_choice = input("Choose a camera (0-9): ")
@@ -47,7 +55,7 @@ with pyvirtualcam.Camera(width=width, height=height, fps=30) as cam:
 
         # Check if the 'q' key is pressed
         key = cv2.waitKey(1)
-        if keyboard.is_pressed("a"):
+        if toggle == True:
             print('rubbish')
             # If 'q' is pressed, display a white screen
             frame_rgb = np.full((height, width, 3), (255, 255, 255), dtype=np.uint8)
