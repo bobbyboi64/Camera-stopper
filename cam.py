@@ -12,7 +12,8 @@ camera_list = []
 for i in range(10):
     cap = cv2.VideoCapture(i)
     if cap.isOpened():
-        camera_list.append(f"Camera {i}: {cap.get(cv2.CAP_PROP_FRAME_WIDTH)}x{cap.get(cv2.CAP_PROP_FRAME_HEIGHT)}")
+        camera_name = cap.getBackendName()
+        camera_list.append(f"Camera {i}: {camera_name}")
         cap.release()
 
 print("Available cameras:")
