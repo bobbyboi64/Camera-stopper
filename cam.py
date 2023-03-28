@@ -48,7 +48,7 @@ with pyvirtualcam.Camera(width=width, height=height, fps=30) as cam:
 
         # Check for 'q' key press
         key = cv2.waitKey(1)
-        if key == ord("q"):
+        if key == ord("'"):
             if not freeze:
                 # Freeze the frame and store it as the frozen frame
                 freeze = True
