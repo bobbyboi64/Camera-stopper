@@ -22,7 +22,7 @@ for camera in camera_list:
     print(camera)
 
 
-keyboard.add_hotkey("a", toggle_toggle)
+keyboard.add_hotkey("v", toggle_toggle)
 # Ask the user to choose a camera
 while True:
     camera_choice = input("Choose a camera (0-9): ")
@@ -55,13 +55,13 @@ with pyvirtualcam.Camera(width=width, height=height, fps=30) as cam:
 
         # Check if the 'q' key is pressed
         key = cv2.waitKey(1)
-        if toggle == True:
-            print('rubbish')
-            # If 'q' is pressed, display a white screen
-            frame_rgb = np.full((height, width, 3), (255, 255, 255), dtype=np.uint8)
-
-        # Send the frame to the virtual camera
-        cam.send(frame_rgb)
+        if toggle:
+            # If 'a' is pressed, freeze the camera by sending the last frame to the virtual camera
+            cam.send(framenew)
+        else:
+            # If 'a' is not pressed, send the current frame to the virtual camera
+            cam.send(frame_rgb)
+            framenew = frame_rgb
 
         # Wait for the specified frame duration
         cam.sleep_until_next_frame()
